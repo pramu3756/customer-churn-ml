@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  churn-api:
+    build: .
+    container_name: customer-churn-api
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./artifacts:/app/artifacts
+    restart: unless-stopped
