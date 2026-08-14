@@ -11,7 +11,21 @@ from src.api.schemas import ChurnResponse, CustomerData, HealthResponse
 from src.explainability.shap_explainer import get_top_risk_factors
 from src.processing.features import engineer_features
 
+# ============================================================
+# SCIKIT-LEARN MODEL COMPATIBILITY
+# ============================================================
 
+try:
+    import sklearn.compose._column_transformer as _ct_mod
+
+    if not hasattr(_ct_mod, "_RemainderColsList"):
+        class _RemainderColsList(list):
+            pass
+
+        _ct_mod._RemainderColsList = _RemainderColsList
+
+except Exception:
+    pass
 app = FastAPI(
     title="Customer Retention & Churn Scoring API",
     version="2.0.0",
