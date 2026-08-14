@@ -1,5 +1,4 @@
 import numpy as np
-import shap
 
 
 def _readable_name(name: str) -> str:
@@ -35,11 +34,14 @@ def get_top_risk_factors(
     top_n=3
 ):
     """
-    Generate customer-specific SHAP explanations
-    for the trained Logistic Regression model.
+    Lightweight customer-specific explanations
+    for Logistic Regression.
+
+    Uses model coefficients and transformed feature values
+    instead of loading the SHAP library.
     """
 
-    # Transform customer input
+    # Transform customer data
     processed_data = preprocessor.transform(input_data)
 
     # Convert sparse matrix to dense
@@ -51,37 +53,18 @@ def get_top_risk_factors(
     # Get feature names
     feature_names = preprocessor.get_feature_names_out()
 
-    # Use zero baseline
-    background = np.zeros(
-        (1, X.shape[1]),
-        dtype=float
-    )
+    # Logistic Regression coefficients
+    coefficients = np.asarray(model.coef_)
 
-    # SHAP LinearExplainer
-    explainer = shap.LinearExplainer(
-        model,
-        background
-    )
+    if coefficients.ndim == 2:
+        coefficients = coefficients[0]
 
-    explanation = explainer(X)
+    # Calculate feature contributions
+    contributions = X[0] * coefficients
 
-    values = np.asarray(
-        explanation.values
-    )
-
-    # Handle binary classification
-    if values.ndim == 3:
-        values = values[:, :, 1]
-
-    if values.ndim == 1:
-        values = values.reshape(1, -1)
-
-    customer_values = values[0]
-
-    # Collect SHAP factors
     candidates = []
 
-    for i, value in enumerate(customer_values):
+    for i, value in enumerate(contributions):
 
         value = float(value)
 
@@ -99,13 +82,13 @@ def get_top_risk_factors(
             "impact": abs(value)
         })
 
-    # Strongest factors first
+    # Strongest contributors first
     candidates.sort(
         key=lambda x: x["impact"],
         reverse=True
     )
 
-    # Remove duplicate groups
+    # Remove duplicate feature groups
     selected = []
     seen_groups = set()
 
@@ -114,10 +97,7 @@ def get_top_risk_factors(
         name = item["name"]
 
         if ": " in name:
-            group = name.split(
-                ": ",
-                1
-            )[0]
+            group = name.split(": ", 1)[0]
         else:
             group = name
 
@@ -130,7 +110,6 @@ def get_top_risk_factors(
         if len(selected) >= top_n:
             break
 
-    # Create API response
     factors = []
 
     for item in selected:
