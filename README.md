@@ -64,3 +64,50 @@ SHAP Explainability
 Customer Analysis
         ↓
 Retention Recommendation
+
+## 🏗️ Tech Stack
+
+**Programming:** Python, JavaScript
+
+**Data Science:** Pandas, NumPy, Scikit-learn
+
+**Machine Learning:** Logistic Regression, SHAP
+
+**Backend:** FastAPI, Pydantic, Uvicorn
+
+**Frontend:** React, Vite, Lucide React, CSS
+
+**DevOps:** Git, GitHub, GitHub Actions, Docker
+
+**Deployment:** Render
+
+## 📂 Project Structure
+
+```text
+customer-churn-ml/
+├── frontend/
+├── src/
+│   ├── api/
+│   ├── models/
+│   ├── processing/
+│   └── explainability/
+├── artifacts/
+├── tests/
+├── Dockerfile
+├── requirements.txt
+└── README.md
+💻 Run Locally
+Backend
+pip install -r requirements.txt
+uvicorn src.api.app:app --reload --port 8000
+Frontend
+cd frontend
+npm install
+npm run dev
+🎯 Key Learning
+This project demonstrates the complete ML application workflow:
+Machine Learning → Explainable AI → FastAPI → React → Testing → Docker → Cloud Deployment
+👨‍💻 Author
+Pramodh S
+BE – Data Science
+GitHub: https://github.com/pramu3756/customer-churn-ml⁠�
