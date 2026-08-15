@@ -1,126 +1,66 @@
-# Customer Retention & Churn Prediction System
+# Customer Churn Prediction & Retention Intelligence Platform
 
-An end-to-end Machine Learning application that predicts customer churn probability, classifies customers into risk tiers, identifies the main churn risk factors using SHAP explainability, and provides targeted customer retention recommendations.
+An end-to-end machine learning application that predicts customer churn risk, explains individual predictions using SHAP, and generates actionable customer retention recommendations through an interactive web dashboard.
 
-## 🚀 Features
+## 🚀 Live Demo
 
-- Customer churn probability prediction
-- Low, Medium, and High churn risk classification
-- Multiple ML model comparison
-- Logistic Regression, Random Forest, and Gradient Boosting
+**Live Application:**  
+https://customer-churn-ml-2.onrender.com
+
+**Backend API:**  
+https://customer-churn-ml-1-cwrj.onrender.com
+
+---
+
+## 📌 Project Overview
+
+Customer churn is a major business challenge for subscription-based companies. Identifying customers who are likely to leave allows businesses to take preventive retention actions.
+
+This project combines **Machine Learning, Explainable AI, REST APIs, React, Docker, CI/CD and Cloud Deployment** to create a complete customer churn intelligence platform.
+
+The application allows a user to enter customer information and receive:
+
+- Churn probability
+- Churn risk level
 - Customer-specific SHAP explanations
-- Top churn risk factors
-- Retention recommendations
-- FastAPI REST API
-- Interactive React frontend
-- Automated API and ML pipeline tests
-- Data leakage prevention
-- Feature engineering and preprocessing pipeline
+- Customer analysis
+- Visual customer metrics
+- Personalized retention recommendations
 
-## 🧠 Machine Learning Workflow
+---
 
-The project follows an end-to-end ML pipeline:
+## 🎯 Business Problem
 
-1. Data ingestion
-2. Data cleaning
-3. Column standardization
-4. Leakage-column removal
-5. Feature engineering
-6. Train/test split
-7. Data preprocessing
-8. Model training
-9. Model comparison
-10. Model selection
-11. SHAP explainability
-12. API deployment
-13. React frontend integration
+Businesses often know which customers have already left, but identifying customers who are **likely to churn before they leave** is more valuable.
 
-## 🤖 Models
+The goal of this project is to:
 
-The following classification models were evaluated:
+1. Predict the probability that a customer will churn.
+2. Identify the most important factors influencing the prediction.
+3. Categorize the customer based on churn risk.
+4. Recommend an appropriate retention strategy.
 
-| Model | F1 Score | ROC-AUC |
-|---|---:|---:|
-| Logistic Regression | 0.6282 | 0.8446 |
-| Random Forest | 0.5598 | 0.8163 |
-| Gradient Boosting | 0.5714 | 0.8419 |
+---
 
-### Best Model
+## 💡 Solution
 
-**Logistic Regression**
-
-- F1 Score: **0.6282**
-- ROC-AUC: **0.8446**
-- Accuracy: **0.7488**
-
-The model was selected based on its overall predictive performance and ROC-AUC.
-
-## 🔍 Explainable AI
-
-SHAP is used to provide customer-specific explanations for predictions.
-
-Example:
-
-- Contract: Month-to-month → increases churn risk
-- Internet Service: DSL → reduces churn risk
-- Streaming Services → reduces churn risk
-
-This makes the prediction more interpretable and useful for customer retention teams.
-
-## ⚙️ Technologies
-
-### Machine Learning
-
-- Python
-- Pandas
-- NumPy
-- Scikit-learn
-- SHAP
-- Joblib
-
-### Backend
-
-- FastAPI
-- Uvicorn
-- Pydantic
-
-### Frontend
-
-- React
-- Vite
-- JavaScript
-- CSS
-
-### Testing
-
-- Pytest
-- FastAPI TestClient
-
-## 📁 Project Structure
+The platform follows this workflow:
 
 ```text
-customer-churn-ml/
-│
-├── data/
-│   └── raw/
-│       └── telco_churn_raw.csv
-│
-├── artifacts/
-│   ├── churn_model.joblib
-│   ├── preprocessor.joblib
-│   └── model_metadata.json
-│
-├── src/
-│   ├── api/
-│   ├── models/
-│   ├── processing/
-│   └── explainability/
-│
-├── tests/
-│   ├── test_api.py
-│   └── test_pipeline.py
-│
-├── frontend/
-│
-├── requirements.txt
-└── README.md
+Customer Information
+        ↓
+Feature Engineering
+        ↓
+Preprocessing Pipeline
+        ↓
+Logistic Regression Model
+        ↓
+Churn Probability
+        ↓
+Risk Classification
+        ↓
+SHAP Explainability
+        ↓
+Customer Analysis
+        ↓
+Retention Recommendation
